@@ -1,0 +1,26 @@
+Vì retina net yêu cầu:
+vị trí là [x,y,w,h]
+nhãn là số: 0,1,..
+
+co tong cong 3 buoc
+buoc 0:
+	chia file anh va file xml ra thanh 2 file rieng (imgs va anno)
+buoc 1:
+	lap trinh de doc dc file csv bao gom: ten_anh, nhan, [xmin,ymin,xmax,ymax]
+buoc 2:
+	Ma hoa nhan duoi dan so
+buoc 3:
+	doi xmin,ymin,xmax,ymax -> x,y,w,h
+	
+	cong thuc:
+	w = xmax - xmin
+	h = ymax - ymin
+	x = xmin + (w/2)
+	y = ymin + (h/2)
+
+-> ket qua cuoi cung luu thong tin do duoi dang
+
+[img_path, x,y,w,h,class_id] vao file csv
+
+buoc 4:
+    chia train,test,valid theo ti le tuy y tu file csv da luu

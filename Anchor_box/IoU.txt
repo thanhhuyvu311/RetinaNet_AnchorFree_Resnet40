@@ -1,0 +1,47 @@
+*IoU chi tinh voi toa do (x_min,y_min,x_max,y_max)
+
+Cong thuc tinh IoU:
+                 IoU = area of Intersection / area of Union
+
+1 box se duoc xac dinh boi 2 diem
+
+    Goc trai tren (left up) : (x1,y1) [gia tri lon nhat x1,y1 tu 2 box ban dau]
+    Goc phai duoi (Right down) : (x2,y2) [gia tri nho nhat x2,y2 tu 2 box ban dau]
+
+    Neu 2 box khong cham nhau thi toa do tinh ra se bi sai
+
+    Vi du:
+    box 1 (ground true): LU = (50,50) , RD = (150,150)
+    box 2 (prediction): LU = (100,100) , RD = (200,200)
+
+    BUOC 1:
+        tinh dien tich cua tung box rieng le:
+        - Box A:
+            width = 150 - 50 = 100
+            height = 150 - 50 = 100
+        -> dien tich box A = 100 * 100 = 10,000 (pixels)
+        - Box B:
+            width = 200 - 100 = 100
+            height = 200 - 100 = 100
+        -> dien tich box A = 100 * 100 = 10,000 (pixels)
+
+    BUOC 2:
+        tinh toa do va dien tich phan giao nhau:
+        * Toa do x ben trai cua phan giao: max(50,100)-> 100
+        * Toa do y ben trai cua phan giao: max(50,100)-> 100
+        * Toa do x ben phai cua phan giao: min(150,200)-> 150
+        * Toa do y ben phai cua phan giao: min(150,200)-> 150
+    -> vay phan giao nhau (I) trong box co toa do tu (100,100)  den (150,150)
+        tinh dien tich phan giao
+        Width = 150 - 100 = 50
+        Height = 150 - 100 = 50
+        dien tich = 50 * 50 = 2,500 (pixels)
+
+    BUOC 3:
+        tinh dien tich phan gop (Union):
+        Dien tich phan gom (union) duoc tinh bang tong 2 box A, B tru di phan dien tich bi trung
+        Union = area_boxA + area_boxB - I_AB = 10,000 + 10,000 - 2,500 = 17,500 (pixels)
+
+    BUOC 4:
+        Tinh IoU
+            IoU = area_I / area_U = 2,500 / 17,500 = 0.14 (~14%)
